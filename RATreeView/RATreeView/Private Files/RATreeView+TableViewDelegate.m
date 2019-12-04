@@ -239,8 +239,9 @@
 
 #pragma mark - Managing Table View ContextMenuConfiguration
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
-    if ([self.delegate respondsToSelector:@selector(treeView:contextMenuConfigurationForRowAtIndexPath:point:)]) {
-        return [self.delegate treeView:self contextMenuConfigurationForRowAtIndexPath:indexPath point:point];
+    if ([self.delegate respondsToSelector:@selector(treeView:contextMenuConfigurationForItem:point:)]) {
+        RATreeNode *treeNode = [self treeNodeForIndexPath:indexPath];
+        return [self.delegate treeView:self contextMenuConfigurationForItem:treeNode.item point:point];
     }
     return nil;
 }
