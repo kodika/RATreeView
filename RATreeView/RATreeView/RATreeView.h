@@ -441,6 +441,20 @@ typedef enum RATreeViewRowAnimation {
  */
 - (void)treeView:(RATreeView *)treeView didUnhighlightRowForItem:(id)item;
 
+///------------------------------------------------
+/// @name Managing Context Menu Configuration
+///------------------------------------------------
+
+/**
+ *  Asks the delegate to show context menu of a row for specified item in the receiver.
+ *
+ *  @param treeView     The tree-view object that highlighted the cell.
+ *  @param indexPath    The indexPath that the user gestured.
+ *  @param point        The point that the user triggered the context menu configuration.
+ */
+- (UIContextMenuConfiguration *)treeView:(RATreeView *)treeView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0));
+
+
 @end
 
 
