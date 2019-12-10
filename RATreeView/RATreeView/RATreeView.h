@@ -452,7 +452,7 @@ typedef enum RATreeViewRowAnimation {
  *  @param item         An item identifying a row in tree view.
  *  @param point        The point that the user triggered the context menu configuration.
  */
-- (UIContextMenuConfiguration *)treeView:(RATreeView *)treeView contextMenuConfigurationForItem:(id)item point:(CGPoint)point API_AVAILABLE(ios(13.0));
+- (UIContextMenuConfiguration * _Nullable)treeView:(RATreeView *)treeView contextMenuConfigurationForItem:(id)item point:(CGPoint)point API_AVAILABLE(ios(13.0));
 
 
 @end
