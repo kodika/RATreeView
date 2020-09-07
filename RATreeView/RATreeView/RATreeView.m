@@ -479,7 +479,7 @@
   if ([self isCellForItemExpanded:[self parentForItem:item]] || [self parentForItem:item] == nil){
     NSIndexPath *indexPath = [self indexPathForItem:item];
     UITableViewScrollPosition tableViewScrollPosition = [RATreeView tableViewScrollPositionForTreeViewScrollPosition:scrollPosition];
-    [self.tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:tableViewScrollPosition];
+      [self macMultiSelectIndexPath:indexPath animated:animated scrollPosition:tableViewScrollPosition];
   }
 }
 
@@ -489,6 +489,25 @@
     NSIndexPath *indexPath = [self indexPathForItem:item];
     [self.tableView deselectRowAtIndexPath:indexPath animated:animated];
   }
+}
+
+//fix for MacCatalyst to have multi select. default selectIndexPath keeps only last selection. Can be used also for single selections.
+-(void)macMultiSelectIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated scrollPosition:(RATreeViewScrollPosition)scrollPosition{
+    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[self.tableView methodSignatureForSelector:NSSelectorFromString(@"_selectRowAtIndexPath:animated:scrollPosition:notifyDelegate:isCellMultiSelect:")]];
+    [inv setSelector:NSSelectorFromString(@"_selectRowAtIndexPath:animated:scrollPosition:notifyDelegate:isCellMultiSelect:")];
+    [inv setTarget:self.tableView];
+    
+    NSNumber *arg3 = [NSNumber numberWithBool:animated];
+    NSNumber *arg4 = [NSNumber numberWithInt:scrollPosition];
+    //for notifyDelegate we dont pass any value to work as NO
+    NSNumber *arg6 = [NSNumber numberWithBool:YES];
+    
+    [inv setArgument:&(indexPath) atIndex:2];
+    [inv setArgument:&(arg3) atIndex:3];
+    [inv setArgument:&(arg4) atIndex:4];
+    [inv setArgument:&(arg6) atIndex:6];
+    
+    [inv invoke];
 }
 
 - (BOOL)allowsSelection
