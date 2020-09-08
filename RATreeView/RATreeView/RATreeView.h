@@ -455,6 +455,17 @@ typedef enum RATreeViewRowAnimation {
 - (UIContextMenuConfiguration * _Nullable)treeView:(RATreeView *)treeView contextMenuConfigurationForItem:(id)item point:(CGPoint)point API_AVAILABLE(ios(13.0));
 
 
+- (BOOL)treeView:(RATreeView *)treeView shouldBeginMultipleSelectionInteractionForItem:(id)item API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos, watchos);
+
+- (void)treeView:(RATreeView *)treeView didBeginMultipleSelectionInteractionForItem:(id)item API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos, watchos);
+
+- (void)treeViewDidEndMultipleSelectionInteraction:(RATreeView *)treeView API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos, watchos);
+
+
+- (nullable UISwipeActionsConfiguration *)treeView:(RATreeView *)treeView leadingSwipeActionsConfigurationForRowForItem:(id)item API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+- (nullable UISwipeActionsConfiguration *)treeView:(RATreeView *)treeView trailingSwipeActionsConfigurationForRowForItem:(id)item API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
 @end
 
 

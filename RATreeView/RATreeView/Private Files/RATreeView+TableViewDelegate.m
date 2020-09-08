@@ -169,6 +169,45 @@
   return YES;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldBeginMultipleSelectionInteractionAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([self.delegate respondsToSelector:@selector(treeView:shouldBeginMultipleSelectionInteractionForItem:)]) {
+      RATreeNode *treeNode = [self treeNodeForIndexPath:indexPath];
+      return [self.delegate treeView:self shouldBeginMultipleSelectionInteractionForItem:treeNode.item];
+    }
+    return false;
+}
+
+- (void)tableView:(UITableView *)tableView didBeginMultipleSelectionInteractionAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self.delegate respondsToSelector:@selector(treeView:didBeginMultipleSelectionInteractionForItem:)]) {
+      RATreeNode *treeNode = [self treeNodeForIndexPath:indexPath];
+      [self.delegate treeView:self didBeginMultipleSelectionInteractionForItem:treeNode.item];
+    }
+}
+
+- (void)tableViewDidEndMultipleSelectionInteraction:(UITableView *)tableView{
+    if ([self.delegate respondsToSelector:@selector(treeViewDidEndMultipleSelectionInteraction:)]) {
+      [self.delegate treeViewDidEndMultipleSelectionInteraction:self];
+    }
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self.delegate respondsToSelector:@selector(treeView:leadingSwipeActionsConfigurationForRowForItem:)]) {
+      RATreeNode *treeNode = [self treeNodeForIndexPath:indexPath];
+      return [self.delegate treeView:self leadingSwipeActionsConfigurationForRowForItem:treeNode.item];
+    }
+    return nil;
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self.delegate respondsToSelector:@selector(treeView:trailingSwipeActionsConfigurationForRowForItem:)]) {
+      RATreeNode *treeNode = [self treeNodeForIndexPath:indexPath];
+      return [self.delegate treeView:self trailingSwipeActionsConfigurationForRowForItem:treeNode.item];
+    }
+    return nil;
+}
 
 #pragma mark - Editing Table Rows
 
