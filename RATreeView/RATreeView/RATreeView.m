@@ -479,7 +479,13 @@
   if ([self isCellForItemExpanded:[self parentForItem:item]] || [self parentForItem:item] == nil){
     NSIndexPath *indexPath = [self indexPathForItem:item];
     UITableViewScrollPosition tableViewScrollPosition = [RATreeView tableViewScrollPositionForTreeViewScrollPosition:scrollPosition];
+
+#if TARGET_OS_MACCATALYST
       [self macMultiSelectIndexPath:indexPath animated:animated scrollPosition:tableViewScrollPosition];
+#else
+      [self.tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:tableViewScrollPosition];
+#endif
+      
   }
 }
 
